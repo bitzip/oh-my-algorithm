@@ -26,50 +26,6 @@ swap = function (items, from, to) {
   return items
 }
 
-// no swap in partition
-partition = function (items, left, right) {
-  var pivot = items[left]
-
-  while (left < right) {
-    while (pivot <= items[right] && left < right) {
-      right--
-    }
-    if (left < right) {
-      items[left] = items[right]
-      left++
-    }
-
-    while (items[left] < pivot && left < right) {
-      left++
-    }
-    if (left < right) {
-      items[right] = items[left]
-      right--
-    }
-  }
-  items[left] = pivot
-  return left
-}
-
-quickSort = function (items, left, right) {
-  var index
-  left = left || 0
-  right = right || items.length - 1
-  index = partition(items, left, right)
-
-  if (left < index - 1) {
-    quickSort(items, left, index - 1)
-  }
-  if (index + 1 < right) {
-    quickSort(items, index + 1, right)
-  }
-  
-  return items
-}
-
-test(quickSort)
-
-
 // swap in partition
 partition = function (items, left, right) {
   var pivot = items[left]
