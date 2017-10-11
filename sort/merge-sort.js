@@ -3,6 +3,7 @@
    */
 
 var mergeSort
+  , merge
   , test
 
 test = function (fn) {
@@ -11,33 +12,31 @@ test = function (fn) {
   console.log(fn(before).toString() == expect.toString())
 }
 
-mergeSort = function(arr) {
-  var step = 1
+merge = function (left, right) {
+  var ret = []
 
-  function merge(arr, step, index) {
-    var leftPart = arr.slice(index, index + step)
-      , rightPart = arr.slice(index + step, index + step * 2)
-      , result = []
-
-      while(leftPart.length > 0 && rightPart.length > 0) {
-        if (leftPart[0] < rightPart[0]) {
-          result.push(leftPart.shift())
-        } else {
-          result.push(rightPart.shift())
-        }
+    while(left.length > 0 && right.length > 0) {
+      if (left[0] < right[0]) {
+        ret.push(left.shift())
+      } else {
+        ret.push(right.shift())
       }
-      
-      return result.concat(leftPart, rightPart)
-  }
-
-  while (step < arr.length) {
-    for (var i = 0, len = arr.length; i < len; i =  i + step * 2) {
-        arr.splice.bind(arr, i, step * 2).apply(arr, merge(arr, step, i))
     }
-    step = step * 2
+    return ret.concat(left, right)
+}
+
+
+mergeSort = function(arr) {
+  if (arr.length < 2) {
+    return arr
   }
 
-  return arr
+  var middle = Math.floor(arr.length / 2)
+  return merge(
+    mergeSort(arr.slice(0, middle)),
+    mergeSort(arr.slice(middle))
+  )
 }
 
 test(mergeSort)
+
