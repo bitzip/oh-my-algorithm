@@ -13,7 +13,7 @@ test = function (fn) {
   list = [1]
   console.log(fn(arr, 1) === 0)
 
-  list = [1,2]
+  list = [1, 2]
   console.log(fn(arr, 2) === 1)
 }
 
